@@ -27,13 +27,35 @@ import scipy.io as sio
 # 		#---- feature extraction
 import pandas as pd
 from sklearn.model_selection import KFold
-from sklearn.decomposition import PCA, KernelPCA
+from sklearn.decomposition import PCA
 from sklearn.metrics import confusion_matrix
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import svm
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier , AdaBoostClassifier , GradientBoostingClassifier
+from sklearn.feature_selection import mutual_info_classif,SelectKBest, SelectPercentile
+
+def Mutual_info(features_train,features_test, train_labels):
+
+    Select_Percentile = SelectPercentile(mutual_info_classif, percentile=100).fit(features_train, train_labels)
+    train_selected =Select_Percentile.transform(features_train)
+    sorted_Scores=np.sort(Select_Percentile.scores_)
+    scores_Length=len(sorted_Scores)
+    cdf = np.arange(scores_Length) / float(scores_Length-1)
+    scores_Idx=np.where(cdf>=0.7)
+    sorted_Scorescdf=sorted_Scores[scores_Idx]
+    selected_Scores=np.nonzero(np.in1d(Select_Percentile.scores_,sorted_Scorescdf))[0]
+    train_selected= features_train.iloc[:, selected_Scores]
+    test_selected=features_test.iloc[:, selected_Scores]
+    return train_selected, test_selected
+
+
+def PCA(features_train,features_test):
+	pca = PCA(n_components=0.9)
+	train_selected = pca.fit_transform(features_train)
+	test_selected = pca.transform(features_test)
+	return train_selected , test_selected
 
 
 dataset = pd.read_csv("mental-state.csv")	
@@ -70,10 +92,10 @@ for i in range (3):
 		train_labels=label.iloc[train_Idx]
 		test_labels=label.iloc[test_Idx]
 
-		#train_selected  , test_selected  = Mutual_info()
+		train_selected  , test_selected  = PCA(train_data,test_data)
 		classifier = RandomForestClassifier()
-		classifier.fit(train_data, train_labels)
-		pred_labels = classifier.predict(test_data)
+		classifier.fit(train_selected, train_labels)
+		pred_labels = classifier.predict(test_selected)
 		total_pred.extend(pred_labels)
 		actual_labels.extend(test_labels)
 
