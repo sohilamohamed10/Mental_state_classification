@@ -17,7 +17,7 @@ In this project we formulated 3 binary problems to classify the 3 mental states 
 ## Feature Extraction 
 Due to brain signal is nonlinear and nonstationary in nature,and single values are not indicative of class so the best features to be extracted are temporal statistical features .Moreover features in frquency domain can be a good candidate in EEG feature extractions due to the presence of frequency bands (alpha , beta ,theta ,gamma) in brain signals and every brain task induce a signal in one frequency band or more and that makes it discriminative.
  
- In this study feature extracted by using 1 sec moving window with 0.5 sec overlap , features represented in calculated mean(for whole window , the difference in means of 2 halves of the window and the difference in means of 4 quarters of thww window) , [standard deviation , kurtosis , skewness,min ,max] (in same way of mean), covariance matrix ,log covariance , eignvalues and fast fourier transform .
+ In this study feature extracted by using 1 sec moving window with 0.5 sec overlap , features represented in calculated mean(for whole window , the difference in means of 2 halves of the window and the difference in means of 4 quarters of the window) , [standard deviation , kurtosis , skewness,min ,max] (in same way of mean), covariance matrix ,log covariance , eignvalues and fast fourier transform .
 
 ## Feature Selection and Classification 
 While building a machine learning model for real-life dataset
