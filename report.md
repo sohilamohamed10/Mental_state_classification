@@ -1,9 +1,9 @@
 Group members:
 
-1) Ashar Seif AlNasr
-2) Alaa Allah Essam
-3) Mariam Ashraf Mohamed 
-4) Sohila Mohamed Maher
+1) Ashar Seif AlNasr    BN:9
+2) Alaa Allah Essam     BN:13
+3) Mariam Ashraf Mohamed     BN:24
+4) Sohila Mohamed Maher      BN:38
 
 
 ## Problem Definition
